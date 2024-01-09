@@ -1,13 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const Port = 5500;
-const mongoose =  require('mongoose');
-const loginSchema = require('./Model/database');
+const mongoose = require("mongoose");
+const loginData = require("./Model/database");
 
 // middle ware
 app.use(express.json());
 // app.use(cors());
-
 
 // db connected
 mongoose
@@ -19,19 +18,26 @@ mongoose
     console.log(error);
   });
 
-
-app.get('/',(req,res)=>{
-    res.status(200).send("This is running on port 5500")
-})
+app.get("/", (req, res) => {
+  res.status(200).send("This is running on port 5500");
+});
 
 // get data
+app.get("/getData", async (req, res) => {
+  const allData = await loginData.find();
+
+  // verifying data available or not
+  if (!allData)
+    return res.status(404).send({ success: false, messege: "No Record found" });
+  return res
+    .status(200)
+    .send({ success: true, messege: "record found", data: allData });
+});
 // create data
 // delete data
 // update/edit data
 
-
-
 // server created
-app.listen(Port,()=>{
-    console.log(`This app is runnig on Port ${Port}`);
-})
+app.listen(Port, () => {
+  console.log(`This app is runnig on Port ${Port}`);
+});
