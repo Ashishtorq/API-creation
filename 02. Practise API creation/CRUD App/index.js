@@ -34,6 +34,7 @@ app.get("/getData", async (req, res) => {
     .send({ success: true, messege: "record found", data: allData });
 });
 // create data
+
 // delete data
 // update/edit data
 

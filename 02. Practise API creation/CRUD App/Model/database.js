@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 
 const dataCrud = new mongoose.Schema({
   Name: {
-    type: String,
+    type: String
   },
   Password: {
-    type: Number,
+    type: Number
   }
 });
 
