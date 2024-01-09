@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const Port = 5500;
 const mongoose =  require('mongoose');
+const loginSchema = require('./Model/database');
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/CRUD-SAT")
