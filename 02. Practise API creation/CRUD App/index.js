@@ -34,7 +34,18 @@ app.get("/getData", async (req, res) => {
     .send({ success: true, messege: "record found", data: allData });
 });
 // create data
-
+app.post('/dataCreate', async (req, res) => {
+  const createData = req.body;
+  const newData = new Product(createData);
+  const response = await newData.save()
+  if (!response) {
+    return res
+      .status(404)
+      .send({ success: false, messege: "Data not created" });
+  } else {
+    return res.status(200).send({ success: true, messege: "Data Created" });
+  }
+});
 // delete data
 // update/edit data
 
