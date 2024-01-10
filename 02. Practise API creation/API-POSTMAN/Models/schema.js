@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
 
-
 const modelSchema = new mongoose.Schema({
-    name:{
-        type:String
-    },
-    email:{
-        type:String
-    }
-    // Mob_No:{
-    //     type:Number
-    // }
+  Name: {
+    type: String
+  },
+  Email: {
+    type: String
+  },
+  id: {
+    type: Number
+  },
 });
-
 
 module.exports = mongoose.model("prac_collection", modelSchema);
