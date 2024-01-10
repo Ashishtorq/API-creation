@@ -18,35 +18,55 @@ app.get("/", (req, res) => {
 });
 
 // get or fetch data
-app.get("/get",async(req,res)=>{
-    const getData = await dataBase.find();
-    res.send(getData);
-})
+app.get("/get", async (req, res) => {
+  const getData = await dataBase.find();
+  res.send(getData);
+});
 
 // create data
 app.post("/post", async (req, res) => {
   const data = new dataBase({
     Name: req.body.Name,
     Email: req.body.Email,
-    id:req.body.id
+    id: req.body.id,
   });
   const val = await data.save();
   res.json(val);
-//   if(respose) return res.status(201).send({messege:"This is working"})
+  //   if(respose) return res.status(201).send({messege:"This is working"})
 });
 
-
 // update data
-app.put('/put/:id', async(req,res)=>{
-    let upid = req.params.id;
-    let upname = req.body.Name;
-    let upemail = req.body.Email
+app.put("/put/:id", async (req, res) => {
+  let upid = req.params.id;
+  let upname = req.body.Name;
+  let upemail = req.body.Email;
 
-    dataBase.findByIdAndUpdate({id:upid},{$set:{Name:upname, Email:upemail}},{new:true},(err, data)=>{
-        if(data==NULL) return res.send("No Such Data Found");
-        return res.send("Data Found and updated")
-    })
-})
+  const data = await dataBase.findOneAndUpdate(
+    { id: upid },
+    { $set: { Name: upname, Email: upemail } },
+    { new: true }
+  );
+  // verification
+  if (!data) {
+    return res.send("No Such Data Found");
+  }
+
+  return res.send("Data Found and updated");
+});
+
+// fetch particular data
+app.get("/fetch/:id", async (req, res) => {
+  const fetchId = req.params.id;
+  const resp = await dataBase.find({ id: fetchId });
+  if (resp) return res.send(resp);
+});
+// Delete
+app.delete("/delete/:id", async (req, res) => {
+  const delData = req.params.id;
+  const resp = await dataBase.findOneAndDelete({ id: delData });
+  if (resp) return res.send("Data Deleted Successfully");
+  return res.send("Data not deletd");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
