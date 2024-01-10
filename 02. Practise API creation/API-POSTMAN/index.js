@@ -3,7 +3,10 @@ const app = express();
 const mongoose = require("mongoose");
 const PORT = 4001;
 const dataBase = require("./Models/schema");
+
 app.use(express.json());
+
+// Database Connection
 mongoose
   .connect("mongodb://127.0.0.1:27017/mydb")
   .then(() => {
@@ -17,7 +20,7 @@ app.get("/", (req, res) => {
   res.status(201).send("Data is ok");
 });
 
-// get or fetch data
+// Get all data
 app.get("/get", async (req, res) => {
   const getData = await dataBase.find();
   res.send(getData);
@@ -32,7 +35,6 @@ app.post("/post", async (req, res) => {
   });
   const val = await data.save();
   res.json(val);
-  //   if(respose) return res.status(201).send({messege:"This is working"})
 });
 
 // update data
@@ -46,16 +48,13 @@ app.put("/put/:id", async (req, res) => {
     { $set: { Name: upname, Email: upemail } },
     { new: true }
   );
-  // verification
-  if (!data) {
-    return res.send("No Such Data Found");
-  }
-
+  
+  if (!data) return res.send("No Such Data Found");
   return res.send("Data Found and updated");
 });
 
 // fetch particular data
-app.get("/fetch/:id", async (req, res) => {
+app.get("/get/:id", async (req, res) => {
   const fetchId = req.params.id;
   const resp = await dataBase.find({ id: fetchId });
   if (resp) return res.send(resp);
@@ -65,7 +64,7 @@ app.delete("/delete/:id", async (req, res) => {
   const delData = req.params.id;
   const resp = await dataBase.findOneAndDelete({ id: delData });
   if (resp) return res.send("Data Deleted Successfully");
-  return res.send("Data not deletd");
+  return res.send("No Such Data Found");
 });
 
 app.listen(PORT, () => {
