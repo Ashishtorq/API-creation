@@ -26,8 +26,13 @@ app.get('/getAll',async(req,res)=>{
     else return res.send(data);
 })
 // get one data
+app.get('/getone/:id', async(req,res)=>{
+    const getId = req.params.id;
+    const data = await dataBase.find({id:getId});
+    res.send(data);
+})
 // update
-app.put("/put/:id", async (req,res)=>{
+app.put("/put/:id", async(req,res)=>{
     let upName = req.body.Name;
     let upEmail = req.body.Email;
     let upid = req.params.id;
@@ -40,8 +45,21 @@ app.put("/put/:id", async (req,res)=>{
     res.send(data);
 })
 // create
+app.post("/post", async (req,res)=>{
+    const data = new dataBase({
+        Name: req.body.Name,
+        Email: req.body.Email,
+        id: req.body.id
+    })
+    const resp = await data.save();
+    res.send(resp);
+})
 // delete
-
+app.delete("/delete/:id", async(req,res)=>{
+    const delID = req.params.id;
+    const resp = await dataBase.findOneAndDelete({id:delID});
+    res.send("Data Deleted Successfully");
+})
 app.listen(PORT, ()=>{
     console.log(`Server is running of PORT ${PORT}`);
 })
