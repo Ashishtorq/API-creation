@@ -34,7 +34,7 @@ app.get("/getData", async (req, res) => {
     .send({ success: true, messege: "record found", data: allData });
 });
 // create data
-app.post('/dataCreate', async (req, res) => {
+app.post("/dataCreate", async (req, res) => {
   const createData = req.body;
   const newData = new Product(createData);
   const response = await newData.save()
@@ -47,6 +47,11 @@ app.post('/dataCreate', async (req, res) => {
   }
 });
 // delete data
+app.delete("/deleteData:id", async(req,res)=>{
+  const delData = req.body;
+  const del = await loginData.findById({id:delData});
+  const response = await loginData.findByIdAndDelete({_id:del._id});
+})
 // update/edit data
 
 // server created
