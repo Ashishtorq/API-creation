@@ -35,21 +35,20 @@ app.get("/getData", async (req, res) => {
 });
 // create data
 app.post("/dataCreate", async (req, res) => {
-  const createData = req.body;
-  const newData = new Product(createData);
-  const response = await newData.save()
-  if (!response) {
-    return res
-      .status(404)
-      .send({ success: false, messege: "Data not created" });
-  } else {
-    return res.status(200).send({ success: true, messege: "Data Created" });
-  }
+  const newData = new loginData({
+    Name:req.body.Name,
+    Password:req.body.Password
+  })
+  const store = await newData.save();
+  res.json(store);
+  if(!store) res.status(404).send({messege:"No data found"});
+  res.status(201).send({messege:"Data Created"});
+
 });
 // delete data
-app.delete("/deleteData:id", async(req,res)=>{
-  const delData = req.body;
-  const del = await loginData.findById({id:delData});
+app.delete("/deleteData/:id", async(req,res)=>{
+  const delData = req.params.id;
+  const del = await loginData.findById({id:delData})
   const response = await loginData.findByIdAndDelete({_id:del._id});
 })
 // update/edit data
