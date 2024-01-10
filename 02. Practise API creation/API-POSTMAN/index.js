@@ -17,7 +17,13 @@ app.get("/", (req, res) => {
   res.status(201).send("Data is ok");
 });
 
+// get or fetch data
+app.get("/get",async(req,res)=>{
+    const getData = await dataBase.find();
+    res.send(getData);
+})
 
+// create data
 app.post("/post", async (req, res) => {
   const data = new dataBase({
     Name: req.body.Name,
@@ -26,8 +32,12 @@ app.post("/post", async (req, res) => {
   });
   const val = await data.save();
   res.json(val);
-  if(respose) return res.status(201).send({messege:"This is working"})
+//   if(respose) return res.status(201).send({messege:"This is working"})
 });
+
+
+// update data
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
