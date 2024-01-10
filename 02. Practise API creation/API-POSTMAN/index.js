@@ -37,7 +37,16 @@ app.post("/post", async (req, res) => {
 
 
 // update data
+app.put('/put/:id', async(req,res)=>{
+    let upid = req.params.id;
+    let upname = req.body.Name;
+    let upemail = req.body.Email
 
+    dataBase.findByIdAndUpdate({id:upid},{$set:{Name:upname, Email:upemail}},{new:true},(err, data)=>{
+        if(data==NULL) return res.send("No Such Data Found");
+        return res.send("Data Found and updated")
+    })
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
