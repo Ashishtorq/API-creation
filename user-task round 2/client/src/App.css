@@ -1,0 +1,59 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  height: 36rem;
+  width: -10rem;
+  box-shadow: 10px 10px 10px 10px #00000082;
+  cursor: pointer;
+  margin: 60px auto;
+}
+
+td {
+  border: 1px solid black;
+}
+
+td:hover {
+  background-color: white;
+}
+
+tr:nth-child(odd) {
+  background-color: #EEEFF0;
+}
+
+th {
+  border: 2px solid white;
+  height: 3rem;
+  font-size: 20px;
+  background-color: #2B91DF;
+  color: white;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.App-header h1 {
+  margin: 0;
+}
+
+.App-header p {
+  margin: 5px 0;
+}
+
+header {
+  background: #2B9194;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}

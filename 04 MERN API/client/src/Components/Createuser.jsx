@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 const Createuser = () => {
-  const [Name, setName] = useState({})
-  const [Email, setEmail] = useState({})
-  const [Age, setAge] = useState({})
+  const [Name, setName] = useState({});
+  const [Email, setEmail] = useState({});
+  const [Age, setAge] = useState({});
   // const navigate = useNavigate()
   const Submit = (e) => {
     e.preventDefault();
